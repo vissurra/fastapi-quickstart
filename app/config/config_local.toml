@@ -1,0 +1,8 @@
+[mysql]
+user = "root"
+password = "123456"
+host = "localhost"
+port = 3306
+
+[mysql.database_name]
+fastapi_quickstart = "fastapi_quickstart"
