@@ -18,7 +18,7 @@ class BaseDatabaseModel(Model):
         database = db
 
     id = AutoField()
-    insert_time = DateTimeField(default=datetime.now(), null=True)
+    insert_time = DateTimeField(default=datetime.now, null=True)
     update_time = DateTimeField(null=True)
 
     def save(self, *args, **kwargs):
