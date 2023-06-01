@@ -1,3 +1,5 @@
+from typing import Annotated
+
 import uvicorn
 from fastapi import FastAPI, Depends
 from loguru import logger
@@ -5,6 +7,7 @@ from starlette.middleware.cors import CORSMiddleware
 
 from app.database.base import db
 from app.database.user import UserToken, User
+from app.dependency.user import get_current_user_or_none
 from app.router import user
 
 
@@ -35,9 +38,9 @@ app.include_router(user.router)
 
 
 @app.get("/")
-def root():
+def root(current_user: Annotated[User, Depends(get_current_user_or_none)]):
     return {
-        'message': 'Hello World'
+        'message': 'Hello World' if current_user is None else f'Hello {current_user.username}'
     }
 
 
