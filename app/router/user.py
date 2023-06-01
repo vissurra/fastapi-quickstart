@@ -5,7 +5,7 @@ from fastapi import APIRouter, Body, Depends
 from app.constant.user_token import UserTokenType
 from app.database.base import db
 from app.database.user import User, UserToken
-from app.dependency.user import current_user
+from app.dependency.user import get_current_user
 from app.exception.auth import AuthException
 from app.exception.biz import BizException
 from app.model.user import UserSignUpRes, UserSignUpReq, UserSignInRes, UserSignInReq, UserProfileRes
@@ -56,6 +56,6 @@ def sign_in(item: Annotated[UserSignInReq, Body()]):
 
 
 @router.get('/profile')
-def get_profile(user: Annotated[User, Depends(current_user)]):
+def get_profile(user: Annotated[User, Depends(get_current_user)]):
     res = UserProfileRes(username=user.username, email=user.email)
     return res
